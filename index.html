@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Load HTMX -->
+    <script
+      src="https://unpkg.com/htmx.org@2.0.1"
+      integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
+      crossorigin="anonymous"
+    ></script>
+    <title>Test</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    <ul id="film-list">
+      {{ range .Films }}
+      <li><p>{{ .Title }} - {{ .Director }}</p></li>
+      {{ end }}
+    </ul>
+
+    <form hx-post="/add-film/">
+      <!-- if desired, you can add the hx-trigger to change from the default submit event on a form (https://htmx.org/attributes/hx-trigger/) -->
+      <!-- hx-post defines the endpoint (https://htmx.org/attributes/hx-post/) -->
+      <!-- hx-target defines where the delivered HTML should be rendered (https://htmx.org/attributes/hx-target/) -->
+      <!-- hx-swap defines how the new data is handled and where it is replacing or adding to an existing list (https://htmx.org/attributes/hx-swap/) -->
+      <div>
+        <label for="film-title">Title</label>
+        <input type="text" name="title" id="film-title" />
+      </div>
+      <div>
+        <label for="film-title">Director</label>
+        <input type="text" name="director" id="film-director" />
+      </div>
+      <button type="submit">submit</button>
+    </form>
+  </body>
+</html>
