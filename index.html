@@ -22,7 +22,9 @@
     <h1>Hello World</h1>
     <ul id="film-list">
       {{ range .Films }}
+        {{ block "film-list-element" .}}
       <li><p>{{ .Title }} - {{ .Director }}</p></li>
+      {{ end }}
       {{ end }}
     </ul>
 

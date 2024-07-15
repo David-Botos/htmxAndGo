@@ -35,9 +35,14 @@ func main() {
 		time.Sleep(1 * time.Second)
 		title := r.PostFormValue("title")
 		director := r.PostFormValue("director")
-		htmlStr := fmt.Sprintf("<li><p>{{ .Title }} %s - %s {{ .Director }}</p></li>", title, director)
-		tmpl, _ := template.New("t").Parse(htmlStr)
-		tmpl.Execute(w, nil)
+		tmpl := template.Must(template.ParseFiles("index.html"))
+		tmpl.ExecuteTemplate(w, "film-list-element", Film{Title: title, Director: director})
+		// w = write function , "film-list-element" is the name given to the block in the html, and the struct is passed down with data
+
+		// not using htmx block
+		// htmlStr := fmt.Sprintf("<li><p>{{ .Title }} %s - %s {{ .Director }}</p></li>", title, director)
+		// tmpl, _ := template.New("t").Parse(htmlStr)
+		// tmpl.Execute(w, nil)
 	}
 	http.HandleFunc("/add-film/", h2)
 
