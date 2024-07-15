@@ -16,7 +16,7 @@ type Film struct {
 func main() {
 	fmt.Println("hello world. The time is", time.Now())
 
-	// Defining
+	// w = write and r = read
 	h1 := func(w http.ResponseWriter, r *http.Request) {
 		template := template.Must(template.ParseFiles("index.html"))
 
@@ -32,11 +32,10 @@ func main() {
 	http.HandleFunc("/", h1)
 
 	h2 := func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(1 * time.Second)
 		title := r.PostFormValue("title")
 		director := r.PostFormValue("director")
-		// log.Print(title)
-		// log.Print(director)
-		htmlStr := fmt.Sprintf("<p>{{ .Title }} %s - %s {{ .Director }}</p>", title, director)
+		htmlStr := fmt.Sprintf("<li><p>{{ .Title }} %s - %s {{ .Director }}</p></li>", title, director)
 		tmpl, _ := template.New("t").Parse(htmlStr)
 		tmpl.Execute(w, nil)
 	}
